@@ -11,6 +11,7 @@ load_dotenv()
 JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 JWT_ALGORITHM = os.getenv("JWT_ALGORITHM")
 SECRET_KEY = os.getenv
+JWT_SECONDS = os.getenv("JWT_SECONDS")
 
 
 def token_required(f):
@@ -23,16 +24,26 @@ def token_required(f):
             return jsonify({'message': 'Token requerido!'}), 401
         try:
             data = jwt.decode(token, JWT_SECRET_KEY, algorithms=["HS256"])
-            current_user = data['username']
+            current_user = data['email']
         except:
-            return jsonify({'message': 'Token is invalid!'}), 401
+            return jsonify({'message': 'Token inválido!'}), 401
         return f(current_user, *args, **kwargs)
     return decorated
 
 
-def generate_token(username):
+def generate_token(email):
     token = jwt.encode({
-        'username': username,
-        'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
+        'email': email,
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=int(JWT_SECONDS))
     }, JWT_SECRET_KEY, algorithm=JWT_ALGORITHM)
     return token
+
+
+def get_email_from_token(token):
+    try:
+        data = jwt.decode(token, JWT_SECRET_KEY, algorithms=["HS256"])
+        return data['email']
+    except jwt.ExpiredSignatureError:
+        return None
+    except jwt.InvalidTokenError:
+        return None

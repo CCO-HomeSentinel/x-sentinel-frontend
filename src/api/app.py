@@ -3,6 +3,8 @@ import os
 import sys
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from dotenv import load_dotenv
+from config.auth import generate_token, token_required
+
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from config.logger import logger
