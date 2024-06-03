@@ -26,7 +26,6 @@ class MySQLConnection:
             Session = sessionmaker(bind=self.engine)
             self.session = Session()
 
-            self.Base.metadata.create_all(self.engine)
         except Exception as e:
             logger.log("error", f"Erro ao conectar com o banco de dados. {e}")
 
@@ -60,3 +59,21 @@ class MySQLConnection:
         except Exception as e:
             logger.log("error", f"Erro ao executar query de select. {e}")
             return []
+
+    
+    def get_mapping(self):
+        query = """
+            SELECT 
+            	cl.id, 
+                CONCAT(cl.nome, ' ', cl.sobrenome) nome, 
+                re.nome, 
+                en.latitude, 
+                en.longitude, 
+                en.bairro,
+                en.cidade
+            FROM home_sentinel.cliente cl
+                JOIN home_sentinel.residencia re ON re.cliente_id = cl.id
+            	JOIN home_sentinel.endereco en ON en.residencia_id = re.id
+            ORDER BY cl.id;"""
+        
+        return self.execute_select_query(query)
