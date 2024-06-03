@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 import os
 import sys
-from flask import Flask, request, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from dotenv import load_dotenv
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
@@ -20,6 +20,13 @@ def create_app():
         logger.log("info", "Endpoint / acessado.")
         mapeamento = get_mapeamento()
         return render_template('index.html')
+    
+    @app.route('/login', methods=['POST'])
+    def login():
+        username = request.form['username']
+        password = request.form['password']
+        
+        return redirect(url_for('index'))
 
     return app
 
