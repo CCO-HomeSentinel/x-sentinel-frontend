@@ -30,3 +30,13 @@ def get_mapeamento():
 
     mapeamento_json = converter_para_json(mapeamento)
     return mapeamento_json
+
+
+def logar(email, senha):
+    connection = MySQLConnection()
+    cliente = connection.get_login(email, senha)
+
+    if cliente:
+        return cliente
+    else:
+        return None

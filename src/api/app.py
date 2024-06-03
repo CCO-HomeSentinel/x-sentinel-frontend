@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from config.logger import logger
-from service.clientes import get_mapeamento
+from service.clientes import get_mapeamento, logar
 
 load_dotenv()
 
@@ -23,10 +23,18 @@ def create_app():
     
     @app.route('/login', methods=['POST'])
     def login():
-        username = request.form['username']
+        email = request.form['email']
         password = request.form['password']
+
+        cliente = logar(email, password)
+        if cliente:
+            return redirect(url_for('main'))
+        else:
+            return redirect(url_for('home', error=1))
         
-        return redirect(url_for('index'))
+    @app.route('/main')
+    def main():
+        return render_template('main.html')
 
     return app
 
