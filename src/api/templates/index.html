@@ -1,1 +1,16 @@
-{% comment %} index.html {% endcomment %}
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Levensthein</title>
+</head>
+<body>
+    <div class="search-container" style="margin-top:300px">
+        <form action="/search" method="POST" class="search-box">
+            <input type="text" name="query" placeholder="Faça uma busca..." autocomplete="off">
+        </form>
+    </div>
+</body>
+</html>
