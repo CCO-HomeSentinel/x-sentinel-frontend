@@ -41,6 +41,10 @@ class MySQLConnection:
 
     def get_database(self):
         return MYSQL_DATABASE
+    
+    
+    def get_connection(self):
+        return self.engine.connect()
 
 
     def return_dict(self, obj):
