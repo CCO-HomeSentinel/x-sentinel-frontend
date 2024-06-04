@@ -13,6 +13,7 @@
 <body>
     <nav class="navbar">
         <div class="navbar-left">
+            <img src={{ url_for('static', filename='logoTransparenteFora.png') }} alt="User Image" width="40" style="margin-right: 16px">
             <span id="username">Usuário</span>
         </div>
         <div class="navbar-right">
@@ -100,7 +101,7 @@
         }
 
         function initializeMap() {
-            window.map = L.map('map').setView([-23.55052, -46.633308], 10); // Initial view centered on Brazil
+            window.map = L.map('map').setView([-23.55052, -46.633308], 10);
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
               attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
