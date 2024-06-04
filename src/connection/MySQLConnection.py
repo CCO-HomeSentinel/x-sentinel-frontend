@@ -77,12 +77,13 @@ class MySQLConnection:
             SELECT 
             	cl.id, 
                 CONCAT(cl.nome, ' ', cl.sobrenome) nome,
-                cl.foto_url
+                cl.foto_url,
                 re.nome, 
                 en.latitude, 
                 en.longitude, 
                 en.bairro,
-                en.cidade
+                en.cidade,
+                en.estado
             FROM home_sentinel.cliente cl
                 JOIN home_sentinel.residencia re ON re.cliente_id = cl.id
             	JOIN home_sentinel.endereco en ON en.residencia_id = re.id
@@ -90,6 +91,7 @@ class MySQLConnection:
         
         return self.execute_select_query(query)
     
+
     def get_login(self, email, senha):
         query = f"""
             SELECT id, nome, email

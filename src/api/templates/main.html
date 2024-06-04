@@ -35,21 +35,50 @@
 
     <script>
         document.getElementById('logout-button').addEventListener('click', function() {
-            localStorage.removeItem('token');
+            localStorage.clear();
             window.location.href = '/';
         });
 
-        // Coloque o nome do usuário na navbar
         window.onload = function() {
             const token = localStorage.getItem('token');
-            if (token) {
-                // Decodificar o token para obter o nome do usuário
-                const payload = JSON.parse(atob(token.split('.')[1]));
-                document.getElementById('username').innerText = payload.username;
+            const nome = localStorage.getItem('nome');
+            
+            if (token && nome) {
+                document.getElementById('username').innerText = nome;
             } else {
                 window.location.href = '/';
             }
+
+            plotarClientes();
         };
+
+        function plotarClientes() {
+            const clientContainer = document.querySelector('.client-container');
+            clientContainer.innerHTML = '';
+
+            fetch('/clientes', {
+                headers: {
+                    "x-access-token": localStorage.getItem('token')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                data.forEach(cliente => {
+                    const clientCard = document.createElement('div');
+                    clientCard.classList.add('client-card');
+                    clientCard.innerHTML = `
+                        <img src="{{ url_for('static', filename='cliente1.jpg') }}" alt="Cliente 1">
+                        <div class="client-info">
+                            <h3>${cliente.nome}</h3>
+                            <p>Bairro: ${cliente.bairro}</p>
+                            <p>Cidade: ${cliente.cidade}</p>
+                        </div>
+                    `;
+                    clientContainer.appendChild(clientCard);
+                });
+            })
+        }
     </script>
 </body>
 </html>

@@ -10,7 +10,7 @@ load_dotenv()
 
 JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 JWT_ALGORITHM = os.getenv("JWT_ALGORITHM")
-SECRET_KEY = os.getenv
+SECRET_KEY = os.getenv("SECRET_KEY")
 JWT_TIME = os.getenv("JWT_TIME")
 
 

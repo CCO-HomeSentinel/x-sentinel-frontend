@@ -14,11 +14,13 @@ def converter_para_json(dados):
         dicionario = {
             "id_cliente": item[0],
             "nome": item[1],
-            "residencia": item[2],
-            "latitude": float(item[3]),
-            "longitude": float(item[4]),
-            "bairro": item[5],
-            "cidade": item[6]
+            "foto_url": item[2],
+            "residencia": item[3],
+            "latitude": float(item[4]),
+            "longitude": float(item[5]),
+            "bairro": item[6],
+            "cidade": item[7],
+            "estado": item[8]
         }
         lista_json.append(dicionario)
     return lista_json
