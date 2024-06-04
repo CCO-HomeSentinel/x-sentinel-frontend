@@ -8,7 +8,7 @@ from .config.auth import generate_token, token_required
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from config.logger import logger
-from service.clientes import get_mapeamento, logar
+from service.clientes import get_mapeamento, logar, get_residencia
 
 load_dotenv()
 
@@ -26,6 +26,7 @@ def create_app():
     @app.route('/main')
     def main():
         return render_template('main.html')
+    
     
     @app.route('/residencia/<int:id>')
     def residencia(id):
@@ -58,7 +59,17 @@ def create_app():
 
         return jsonify(mapeamento), 200
     
+    
+    @app.route('/residencia-x/<int:id>', methods=['GET'])
+    @token_required
+    def residencia_x(current_user, id):
+        dados_residencia = get_residencia(id)
 
+        if dados_residencia:
+            return jsonify(dados_residencia), 200
+        else:
+            return jsonify({"message": "Residência não encontrada."}), 404
+    
     return app
 
 

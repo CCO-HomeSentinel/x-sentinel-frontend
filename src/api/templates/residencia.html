@@ -1,53 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='residencia.css') }}">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-        crossorigin=""/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='residencia.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
     <title>X Sentinel - Residência</title>
-</head>
-<body>
+  </head>
+  <body>
     <nav class="navbar">
-        <div class="navbar-left">
-            <img src={{ url_for('static', filename='logoTransparenteFora.png') }} alt="User Image" width="40" style="margin-right: 16px">
-            <span id="username">Usuário</span>
-        </div>
-        <div class="navbar-right">
-            <button id="logout-button" class="btn-logout">Sair</button>
-        </div>
+      <div class="navbar-left">
+        <img src={{ url_for('static', filename='logoTransparenteFora.png') }}
+        alt="User Image" width="40" style="margin-right: 16px">
+        <span id="username">Usuário</span>
+      </div>
+      <div class="navbar-right">
+        <button id="logout-button" class="btn-logout">Sair</button>
+      </div>
     </nav>
     <div class="content">
-        <div class="main-container">
-            <div class="client-section">
-                <div class="client-details">
-                    detalhes clientes
-                    <!-- Aqui ficarão os detalhes do cliente -->
-                </div>
-                <div class="map-container">
-                    <div id="map">mapa</div>
-                </div>
-            </div>
-            <div class="kpi-section">
-                <!-- Aqui ficarão os KPIs -->
-                <div class="kpi">kpi1</div>
-                <div class="kpi">kpi2</div>
-                <div class="kpi">kpi3</div>
-            </div>
-            <div class="tweets-section">
-                <!-- Aqui ficarão os tweets -->
-                tweets
-            </div>
+      <div class="container">
+        <div class="left-side">
+          <div class="client-details">
+            <img class="photo-cliente"/>
+            <div class="client-name">Nome do Cliente</div>
+            <div class="client-phone">Telefone do Cliente</div>
+            <div class="client-email">Email do Cliente</div>
+            <div class="client-cep">CEP do Cliente</div>
+            <div class="client-address">Endereço do Cliente</div>
+          </div>
+          <div class="map-container">
+            <div id="map"></div>
+          </div>
         </div>
+        <div class="right-side">
+          <div class="kpi-section">
+            <div class="kpi">kpi1</div>
+            <div class="kpi">kpi2</div>
+            <div class="kpi">kpi3</div>
+          </div>
+          <div class="tweets-section">tweets</div>
+        </div>
+      </div>
     </div>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-        crossorigin=""></script>
-    <script src="{{ url_for('static', filename='residencia.js') }}">
-    </script>
-</body>
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="{{ url_for('static', filename='residencia.js') }}"></script>
+  </body>
 </html>

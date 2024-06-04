@@ -106,3 +106,23 @@ class MySQLConnection:
             return result
         else:
             return None
+        
+
+    def get_residencia(self, id):
+        query = f"""
+            SELECT 
+	            cl.*,
+                re.*, 
+                en.*
+            FROM home_sentinel.cliente cl
+                JOIN home_sentinel.residencia re ON re.cliente_id = cl.id
+	            JOIN home_sentinel.endereco en ON en.residencia_id = re.id
+            WHERE re.id = {id};
+        """
+
+        result = self.execute_single_select_query(query)
+
+        if result:
+            return result
+        else:
+            return None
