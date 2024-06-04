@@ -20,8 +20,13 @@ def create_app():
     @app.route('/')
     def home():
         logger.log("info", "Endpoint / acessado.")
-        mapeamento = get_mapeamento()
         return render_template('index.html')
+    
+
+    @app.route('/main')
+    def main():
+        return render_template('main.html')
+    
     
     @app.route('/login', methods=['POST'])
     def login():
@@ -33,15 +38,22 @@ def create_app():
 
         if cliente:
             token = generate_token(email)
-            return jsonify({'token': token}), 200
+
+            if isinstance(token, bytes):
+                token = token.decode('utf-8')
+
+            return jsonify({'token': token, 'nome': cliente[1]}), 200
 
         return jsonify({"message": "Usuário ou senha inválidos."}), 401
 
     
-    @app.route('/main')
+    @app.route('/clientes', methods=['GET'])
     @token_required
-    def main():
-        return render_template('main.html')
+    def clientes(current_user):
+        mapeamento = get_mapeamento()
+
+        return jsonify(mapeamento), 200
+    
 
     return app
 

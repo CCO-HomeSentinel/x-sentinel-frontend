@@ -1,0 +1,219 @@
+/* static/main.css */
+
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 10px 20px;
+  color: #333;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-left {
+ display: table;
+  font-size: 20px;
+}
+
+.btn-logout {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.btn-logout:hover {
+  background-color: #c0392b;
+}
+
+.main-container {
+  display: flex;
+  height: 100vh; 
+}
+
+.client-section {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.client-section h1 {
+  margin-bottom: 20px;
+}
+
+.client-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow-y: auto;
+  width: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(128, 128, 128, 0.5) rgba(0, 0, 0, 0);
+}
+
+.client-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+#username {
+    margin-left: 16px;
+    display:table-cell;
+    vertical-align:middle;
+}
+
+.client-container::-webkit-scrollbar-thumb {
+  background-color: rgba(128, 128, 128, 0.5);
+  border-radius: 6px;
+}
+
+.iframe-container {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-left: 10px;
+  height: 100%;
+  position: relative;
+}
+
+.iframe-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.client-card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  width: 200px;
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.client-card-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.client-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  object-position: center;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.client-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.client-info {
+  padding: 10px;
+}
+
+.client-info h3 {
+  margin: 10px 0 5px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.client-info p {
+  margin: 5px 0;
+  color: #555;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+.leaflet-layer,
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out,
+.leaflet-control-attribution {
+  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 45%;
+  height: 100%;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  border-radius: 12px;
+  margin: 15% auto;
+  padding: 20px;
+  box-shadow: 0px 10px 100px 78px rgba(0,0,0,0.1);
+  width: 90%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.residence-option {
+  cursor: pointer;
+  padding: 19px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  background-color: #f3f3f3;
+  margin-bottom: 5px;
+}
+
+.residence-option:hover {
+  background-color: #f1f1f1;
+}
+
+.residence-option p {
+  margin: 5px 0;
+}
+
+.residence-option .residencia {
+  font-weight: bold;
+  color: black;
+}
+
+.residence-option .bairro {
+  color: #555;
+}
+
+.residence-option .cidade-estado {
+  color: #777;
+}
