@@ -57,7 +57,13 @@
                 localStorage.setItem('token', result.token);
                 window.location.href = '/main';
             } else {
-                alert('Login failed: ' + result.message);
+                document.getElementById('errorMessage').innerText = result.message;
+            }
+
+            console.log(response)
+
+            if (response.status === 500) {
+                document.getElementById('errorMessage').innerText = 'Internal server error';
             }
         });
     </script>

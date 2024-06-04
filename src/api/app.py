@@ -23,6 +23,7 @@ def create_app():
         mapeamento = get_mapeamento()
         return render_template('index.html')
     
+    
     @app.route('/login', methods=['POST'])
     def login():
         data = request.get_json()
@@ -33,6 +34,10 @@ def create_app():
 
         if cliente:
             token = generate_token(email)
+
+            if isinstance(token, bytes):
+                token = token.decode('utf-8')
+
             return jsonify({'token': token}), 200
 
         return jsonify({"message": "Usuário ou senha inválidos."}), 401
