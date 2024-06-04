@@ -27,6 +27,10 @@ def create_app():
     def main():
         return render_template('main.html')
     
+    @app.route('/residencia/<int:id>')
+    def residencia(id):
+        return render_template('residencia.html')
+    
     
     @app.route('/login', methods=['POST'])
     def login():
