@@ -11,7 +11,7 @@ load_dotenv()
 JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 JWT_ALGORITHM = os.getenv("JWT_ALGORITHM")
 SECRET_KEY = os.getenv
-JWT_SECONDS = os.getenv("JWT_SECONDS")
+JWT_TIME = os.getenv("JWT_TIME")
 
 
 def token_required(f):
@@ -34,7 +34,7 @@ def token_required(f):
 def generate_token(email):
     token = jwt.encode({
         'email': email,
-        'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=int(JWT_SECONDS))
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=int(JWT_TIME))
     }, JWT_SECRET_KEY, algorithm=JWT_ALGORITHM)
     return token
 

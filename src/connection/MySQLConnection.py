@@ -76,7 +76,8 @@ class MySQLConnection:
         query = """
             SELECT 
             	cl.id, 
-                CONCAT(cl.nome, ' ', cl.sobrenome) nome, 
+                CONCAT(cl.nome, ' ', cl.sobrenome) nome,
+                cl.foto_url
                 re.nome, 
                 en.latitude, 
                 en.longitude, 
@@ -95,7 +96,7 @@ class MySQLConnection:
             FROM home_sentinel.usuario
             WHERE email = '{email}' AND senha = MD5('{senha}');
         """
-                
+
         result = self.execute_single_select_query(query)
 
         if result:
