@@ -1,4 +1,3 @@
-<!-- templates/main.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""/>
     <title>X Sentinel - Main</title>
 </head>
 <body>
@@ -18,21 +20,22 @@
         </div>
     </nav>
     <div class="content">
-        <h1>Selecione o cliente</h1>
-        <div class="client-container">
-            <!-- Exemplo de cliente -->
-            <div class="client-card">
-                <img src="{{ url_for('static', filename='cliente1.jpg') }}" alt="Cliente 1">
-                <div class="client-info">
-                    <h3>Cliente 1</h3>
-                    <p>Bairro: Centro</p>
-                    <p>Cidade: São Paulo</p>
+        <div class="main-container">
+            <div class="client-section">
+                <h1>Selecione o cliente</h1>
+                <div class="client-container">
+                    <!-- Os clientes serão inseridos aqui -->
                 </div>
             </div>
-            <!-- Adicione mais clientes aqui -->
+            <div class="iframe-container">
+                <div id="map"></div>
+            </div>
         </div>
     </div>
 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
     <script>
         document.getElementById('logout-button').addEventListener('click', function() {
             localStorage.clear();
@@ -50,6 +53,7 @@
             }
 
             plotarClientes();
+            initializeMap();
         };
 
         function plotarClientes() {
@@ -64,20 +68,52 @@
             .then(response => response.json())
             .then(data => {
                 console.log(data)
+                const locations = [];
                 data.forEach(cliente => {
                     const clientCard = document.createElement('div');
                     clientCard.classList.add('client-card');
+
+                    const fotoUrl = cliente.foto_url ? cliente.foto_url : 'https://i.pinimg.com/474x/cf/4a/c1/cf4ac168846158fc8dca8e80adf2e264.jpg';
+
                     clientCard.innerHTML = `
-                        <img src="{{ url_for('static', filename='cliente1.jpg') }}" alt="Cliente 1">
-                        <div class="client-info">
-                            <h3>${cliente.nome}</h3>
-                            <p>Bairro: ${cliente.bairro}</p>
-                            <p>Cidade: ${cliente.cidade}</p>
+                        <div class="client-card-inner">
+                            <img src="${fotoUrl}" alt="Cliente">
+                            <div class="client-info">
+                                <h3>${cliente.nome}</h3>
+                                <p class='residencia'>${cliente.residencia}</p>
+                                <p class='bairro'>${cliente.bairro}</p>
+                                <p class='cidade'>${cliente.cidade} - ${cliente.estado}</p>
+                            </div>
                         </div>
                     `;
+                    clientCard.addEventListener('click', () => {
+                        window.location.href = `residencia/${cliente.residencia_id}`;
+                    });
                     clientContainer.appendChild(clientCard);
+
+                    if (cliente.latitude && cliente.longitude) {
+                        locations.push([cliente.latitude, cliente.longitude, cliente.nome]);
+                    }
                 });
-            })
+                updateMap(locations);
+            });
+        }
+
+        function initializeMap() {
+            window.map = L.map('map').setView([-23.55052, -46.633308], 10);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(window.map);
+        }
+
+        function updateMap(locations) {
+            if (window.map) {
+                locations.forEach(location => {
+                    L.marker([location[0], location[1]]).addTo(window.map)
+                        .bindPopup(location[2]);
+                });
+            }
         }
     </script>
 </body>

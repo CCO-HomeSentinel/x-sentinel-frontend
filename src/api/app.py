@@ -51,7 +51,6 @@ def create_app():
     @token_required
     def clientes(current_user):
         mapeamento = get_mapeamento()
-        print(mapeamento)
 
         return jsonify(mapeamento), 200
     

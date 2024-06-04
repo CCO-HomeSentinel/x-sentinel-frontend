@@ -16,11 +16,12 @@ def converter_para_json(dados):
             "nome": item[1],
             "foto_url": item[2],
             "residencia": item[3],
-            "latitude": float(item[4]),
-            "longitude": float(item[5]),
-            "bairro": item[6],
-            "cidade": item[7],
-            "estado": item[8]
+            "residencia_id": item[4],
+            "latitude": float(item[5]),
+            "longitude": float(item[6]),
+            "bairro": item[7],
+            "cidade": item[8],
+            "estado": item[9]
         }
         lista_json.append(dicionario)
     return lista_json
