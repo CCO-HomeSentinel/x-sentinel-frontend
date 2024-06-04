@@ -1,6 +1,6 @@
 import os
-from src.config.setup import setup_database, setup_api
-from src.config.logger import logger
+from config.setup import setup_database, setup_api
+from config.logger import logger
 from dotenv import load_dotenv
 
 load_dotenv()

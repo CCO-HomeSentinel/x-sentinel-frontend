@@ -60,12 +60,24 @@ class MySQLConnection:
             logger.log("error", f"Erro ao executar query de select. {e}")
             return []
 
+
+    def execute_single_select_query(self, query):
+        try:
+            with self.engine.connect() as connection:
+                result = connection.execute(text(query))
+                results = result.fetchone()
+                return results
+        except Exception as e:
+            logger.log("error", f"Erro ao executar query de select. {e}")
+            return []
     
+
     def get_mapping(self):
         query = """
             SELECT 
             	cl.id, 
-                CONCAT(cl.nome, ' ', cl.sobrenome) nome, 
+                CONCAT(cl.nome, ' ', cl.sobrenome) nome,
+                cl.foto_url
                 re.nome, 
                 en.latitude, 
                 en.longitude, 
@@ -77,3 +89,17 @@ class MySQLConnection:
             ORDER BY cl.id;"""
         
         return self.execute_select_query(query)
+    
+    def get_login(self, email, senha):
+        query = f"""
+            SELECT id, nome, email
+            FROM home_sentinel.usuario
+            WHERE email = '{email}' AND senha = MD5('{senha}');
+        """
+
+        result = self.execute_single_select_query(query)
+
+        if result:
+            return result
+        else:
+            return None

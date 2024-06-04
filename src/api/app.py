@@ -1,12 +1,14 @@
 from flask import Flask, render_template, request
 import os
 import sys
-from flask import Flask, request, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify, make_response
 from dotenv import load_dotenv
+from .config.auth import generate_token, token_required
+
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from config.logger import logger
-from service.clientes import get_mapeamento
+from service.clientes import get_mapeamento, logar
 
 load_dotenv()
 
@@ -20,6 +22,26 @@ def create_app():
         logger.log("info", "Endpoint / acessado.")
         mapeamento = get_mapeamento()
         return render_template('index.html')
+    
+    @app.route('/login', methods=['POST'])
+    def login():
+        data = request.get_json()
+        email = data['email']
+        password = data['password']
+
+        cliente = logar(email, password)
+
+        if cliente:
+            token = generate_token(email)
+            return jsonify({'token': token}), 200
+
+        return jsonify({"message": "Usuário ou senha inválidos."}), 401
+
+    
+    @app.route('/main')
+    @token_required
+    def main():
+        return render_template('main.html')
 
     return app
 
