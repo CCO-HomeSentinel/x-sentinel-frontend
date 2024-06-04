@@ -39,7 +39,6 @@ def create_app():
 
     
     @app.route('/main')
-    @token_required
     def main():
         return render_template('main.html')
 

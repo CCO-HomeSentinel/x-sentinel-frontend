@@ -1,14 +1,55 @@
-<!-- templates/index.html -->
+<!-- templates/main.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
     <title>X Sentinel - Main</title>
 </head>
 <body>
-    
+    <nav class="navbar">
+        <div class="navbar-left">
+            <span id="username">Usuário</span>
+        </div>
+        <div class="navbar-right">
+            <button id="logout-button" class="btn-logout">Sair</button>
+        </div>
+    </nav>
+    <div class="content">
+        <h1>Selecione o cliente</h1>
+        <div class="client-container">
+            <!-- Exemplo de cliente -->
+            <div class="client-card">
+                <img src="{{ url_for('static', filename='cliente1.jpg') }}" alt="Cliente 1">
+                <div class="client-info">
+                    <h3>Cliente 1</h3>
+                    <p>Bairro: Centro</p>
+                    <p>Cidade: São Paulo</p>
+                </div>
+            </div>
+            <!-- Adicione mais clientes aqui -->
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('logout-button').addEventListener('click', function() {
+            localStorage.removeItem('token');
+            window.location.href = '/';
+        });
+
+        // Coloque o nome do usuário na navbar
+        window.onload = function() {
+            const token = localStorage.getItem('token');
+            if (token) {
+                // Decodificar o token para obter o nome do usuário
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                document.getElementById('username').innerText = payload.username;
+            } else {
+                window.location.href = '/';
+            }
+        };
+    </script>
 </body>
 </html>
