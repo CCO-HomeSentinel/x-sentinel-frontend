@@ -100,11 +100,17 @@
         }
 
         function initializeMap() {
-            window.map = L.map('map').setView([-23.55052, -46.633308], 10);
+            window.map = L.map('map').setView([-23.55052, -46.633308], 10); // Initial view centered on Brazil
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(window.map);
+        
+            const southWest = L.latLng(-33.75, -73.6);
+            const northEast = L.latLng(5.25, -34.75);
+            const bounds = L.latLngBounds(southWest, northEast);
+        
+            map.fitBounds(bounds); 
         }
 
         function updateMap(locations) {
