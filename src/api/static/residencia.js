@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     initializeLogoutButton();
+    initializePage();
 });
 
 function initializeLogoutButton() {
@@ -15,7 +16,7 @@ function initializePage() {
 
     if (token && nome) {
         document.getElementById("username").innerText = nome;
-        initializeMap();
+        listarDadosResidencia();
     } else {
         window.location.href = "/";
     }
@@ -34,14 +35,34 @@ function listarDadosResidencia(){
     }).then((response) => response.json())
     .then((data) => {
         console.log(data)
-        initializeMap(data.endereco.latitude, data.endereco.longitude);
-        // const residencia = data.residencia;
-        // const endereco = data.endereco;
-        // const cliente = data.cliente;
+        const residencia = data.residencia; 
+        const endereco = data.endereco;
+        const cliente = data.cliente;
 
-        // document.getElementById("residencia").innerText = residencia;
-        // document.getElementById("endereco").innerText = `${endereco}, ${cliente.bairro}, ${cliente.cidade} - ${cliente.estado}`;
-        // document.getElementById("foto").src = cliente.foto_url;
+
+        /*
+<img id="photo" src="" alt="User Photo" class="user-photo">
+            <div class="user-info">
+              <h3 id="cliente_name"></h3>
+              <p><strong><span id="cliente_residencia"></span></p>
+              <p><strong><span id="cliente_bairro"></span></strong></p>
+              <p><span id="cliente_cep"></span> - <span id="cliente_cidade"></span> - <span id="cliente_estado"></span></p>
+            </div>
+        */
+
+        console.log(residencia)
+        console.log(endereco)
+        console.log(cliente.foto_url)
+
+        document.getElementById("photo").src = cliente.foto_url;
+        document.getElementById("cliente_name").innerText = cliente.nome;
+        document.getElementById("cliente_residencia").innerText = residencia.nome;
+        document.getElementById("cliente_cep").innerText = endereco.cep;
+        document.getElementById("cliente_cidade").innerText = endereco.cidade;
+        document.getElementById("cliente_estado").innerText = endereco.estado;
+
+        initializeMap(data.endereco.latitude, data.endereco.longitude);
+
     });
 
 }
@@ -71,5 +92,3 @@ function updateMap(locations) {
         });
     }
 }
-
-listarDadosResidencia()

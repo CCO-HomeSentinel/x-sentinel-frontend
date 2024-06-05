@@ -3,7 +3,8 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #ffffff;
+  background-color: #f8f9fa;
+  overflow: hidden; /* Added this line */
 }
 
 .navbar {
@@ -43,32 +44,27 @@ body {
 }
 
 .container {
-  display: flex; /* Enables flexbox layout */
+  display: flex;
 }
 
 .left-side,
 .right-side {
-  padding: 1rem; /* Add some padding */
+  padding: 1rem;
 }
 
 .left-side {
-  width: 33.33%; /* Left side takes 1/3rd of the width */
+  width: 33.33%;
 }
 
 .kpi-section {
-  display: flex; /* Arrange KPIs horizontally */
+  display: flex;
 }
 
 .kpi {
-  flex: 1; /* Ensures each KPI takes equal space */
+  flex: 1;
   padding: 0.5rem;
   margin: 0.5rem;
-  border: 1px solid #ddd; /* Example border for illustration */
-}
-
-#map {
-    width: 100%;
-    height: 50vh;
+  border: 1px solid #ddd;
 }
 
 .leaflet-layer,
@@ -76,4 +72,87 @@ body {
 .leaflet-control-zoom-out,
 .leaflet-control-attribution {
   filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}
+
+.conteiner {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  max-width: 100vw;
+}
+
+.parte-esquerda {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+
+.parte-direita {
+  display: grid;
+  grid-template-rows: 10% 1fr;
+}
+
+.div1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+}
+
+.user-card {
+  width: 80%;
+  height: 75%;
+  background-color: yellow;
+  border-radius: 4px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.user-photo {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 1rem;
+}
+
+.user-info {
+  /* flex: 1; */
+}
+
+.user-info h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.user-info p {
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.div2 {
+  margin: 64px;
+}
+
+#map {
+  width: 100%;
+  height: 35vh;
+  box-shadow: 0px 5px 30px -21px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.div3 {
+  background-color: lightcoral;
+}
+
+.div4 {
+  background-color: lightgoldenrodyellow;
+}
+
+.div5 {
+  background-color: lightpink;
+}
+
+.div6 {
+  background-color: lightseagreen;
 }

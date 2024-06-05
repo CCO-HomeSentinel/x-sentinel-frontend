@@ -27,32 +27,28 @@
         <button id="logout-button" class="btn-logout">Sair</button>
       </div>
     </nav>
-    <div class="content">
-      <div class="container">
-        <div class="left-side">
-          <div class="client-details">
-            <img class="photo-cliente"/>
-            <div class="client-name">Nome do Cliente</div>
-            <div class="client-phone">Telefone do Cliente</div>
-            <div class="client-email">Email do Cliente</div>
-            <div class="client-cep">CEP do Cliente</div>
-            <div class="client-address">Endereço do Cliente</div>
-          </div>
-          <div class="map-container">
-            <div id="map"></div>
+    <div class="conteiner">
+      <div class="parte-esquerda">
+        <div class="div1">
+          <div class="user-card">
+            <img id="photo" src="" alt="User Photo" class="user-photo">
+            <div class="user-info">
+              <h3 id="cliente_name"></h3>
+              <p><strong><span id="cliente_residencia"></span></strong></p>
+              <p><strong><span id="cliente_bairro"></span></strong></p>
+              <p><span id="cliente_cep"></span> - <span id="cliente_cidade"></span> - <span id="cliente_estado"></span></p>
+            </div>
           </div>
         </div>
-        <div class="right-side">
-          <div class="kpi-section">
-            <div class="kpi">kpi1</div>
-            <div class="kpi">kpi2</div>
-            <div class="kpi">kpi3</div>
-          </div>
-          <div class="tweets-section">tweets</div>
+        <div class="div2">
+          <div id="map"></div>
         </div>
       </div>
+      <div class="parte-direita">
+        <div class="div3"></div>
+        <div class="div4"></div>
+      </div>
     </div>
-
     <script
       src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
       integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
