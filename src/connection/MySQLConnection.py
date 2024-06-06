@@ -21,7 +21,7 @@ class MySQLConnection:
         try:
             self.engine = create_engine(
                 f"mysql://{MYSQL_USERNAME}:{MYSQL_PASSWORD}@"
-                f"{MYSQL_HOST}:{MYSQL_PORT}/{MYSQL_DATABASE}"
+                f"{MYSQL_HOST}:{MYSQL_PORT}"
             )
             Session = sessionmaker(bind=self.engine)
             self.session = Session()
@@ -118,3 +118,56 @@ class MySQLConnection:
             return result
         else:
             return None
+
+    
+    def get_tweets_by_residencia_id(self, residencia_id):
+        query = f"""
+            SELECT 
+                tw.id,
+                tw.nome,
+                tw.texto,
+                tw.data_post,
+                tw.palavra_chave,
+                tw.is_palavrao,
+                tw.residencia_id
+            FROM home_sentinel.tweet tw
+            WHERE tw.residencia_id = {residencia_id};
+        """
+
+        return self.execute_select_query(query)
+    
+
+    def get_tweets_by_residencia_id_and_palavras(self, residencia_id, palavras):
+        like_clauses = ' OR '.join([f"tw.texto LIKE '%{palavra}%'" for palavra in palavras])
+    
+        query = f"""
+            SELECT 
+                tw.id,
+                tw.nome,
+                tw.texto,
+                tw.data_post,
+                tw.palavra_chave,
+                tw.is_palavrao,
+                tw.residencia_id
+            FROM x_sentinel.tweet tw
+            WHERE tw.residencia_id = {residencia_id} AND ({like_clauses});
+        """
+
+        return self.execute_select_query(query)
+    
+
+    def get_tweets_by_residencia_id_and_palavra(self, residencia_id, palavra):
+        query = f"""
+            SELECT 
+                tw.id,
+                tw.nome,
+                tw.texto,
+                tw.data_post,
+                tw.palavra_chave,
+                tw.is_palavrao,
+                tw.residencia_id
+            FROM x_sentinel.tweet tw
+            WHERE tw.residencia_id = {residencia_id} AND tw.texto LIKE '%{palavra}%';
+        """
+
+        return self.execute_select_query(query)
