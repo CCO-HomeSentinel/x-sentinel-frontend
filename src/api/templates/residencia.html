@@ -14,6 +14,12 @@
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
       crossorigin=""
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
     <title>X Sentinel - Residência</title>
   </head>
   <body>
@@ -31,12 +37,45 @@
       <div class="parte-esquerda">
         <div class="div1">
           <div class="user-card">
-            <img id="photo" src="" alt="User Photo" class="user-photo">
-            <div class="user-info">
-              <h3 id="cliente_name"></h3>
-              <p><strong><span id="cliente_residencia"></span></strong></p>
-              <p><strong><span id="cliente_bairro"></span></strong></p>
-              <p><span id="cliente_cep"></span> - <span id="cliente_cidade"></span> - <span id="cliente_estado"></span></p>
+            <div class="user-card-info">
+              <img id="photo" src="" alt="User Photo" class="user-photo" />
+              <div class="user-info-left">
+                <div class="block">
+                  <p><span class="label">Nome</span></p>
+                  <p><span class="block_value" id="nome_value">Valor</span></p>
+                </div>
+                <div class="block">
+                  <p><span class="label">CPF</span></p>
+                  <p><span class="block_value" id="cpf_value">Valor</span></p>
+                </div>
+                <div class="block">
+                  <p><span class="label">E-mail</span></p>
+                  <p><span class="block_value" id="email_value">Valor</span></p>
+                </div>
+                <div class="block">
+                  <p><span class="label">Telefone</span></p>
+                  <p>
+                    <span class="block_value" id="telefone_value">Valor</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="location-card-info">
+              <div class="user-info">
+                <h3><span id="residencia_name"></span></h3>
+                <p>
+                  <strong>Endereço:</strong> <span id="cliente_logradouro"></span>, <span id="cliente_numero"></span>
+                </p>
+                <p>
+                  <strong>Bairro:</strong> <span id="cliente_bairro"></span>
+                </p>
+                <p>
+                  <strong>Cidade: </strong><span id="cliente_cidade"></span> - </span><span id="cliente_estado"></span>
+                </p>
+                <p>
+                  <strong>Coordenadas:</strong> (latitude: <span id="cliente_latitude"></span>, longitude: <span id="cliente_longitude"></span>)
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -45,7 +84,20 @@
         </div>
       </div>
       <div class="parte-direita">
-        <div class="div3"></div>
+        <div class="div3">
+          <div class="block_kpi">
+            <span class="lb_kpi">Tweets encontrados</span>
+            <span class="value_kpi" id="tweets_value">0</span>
+          </div>
+          <div class="block_kpi">
+            <span class="lb_kpi">Tweets Ofensivos</span>
+            <span class="value_kpi" id="ofensivos_value">0</span>
+          </div>
+          <div class="block_kpi">
+            <span class="lb_kpi">Últimos 90 dias</span>
+            <span class="value_kpi" id="ofensivos_value">0</span>
+          </div>
+        </div>
         <div class="div4"></div>
       </div>
     </div>

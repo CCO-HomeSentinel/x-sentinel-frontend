@@ -1,10 +1,10 @@
 /* static/residencia.css */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f8f9fa;
-  overflow: hidden; /* Added this line */
+  overflow: hidden;
 }
 
 .navbar {
@@ -93,39 +93,76 @@ body {
   grid-template-rows: 10% 1fr;
 }
 
+.div3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px; /* Spacing between KPIs */
+}
+
+.block_kpi {
+  margin: 24px;
+  background-color: #fff; /* Light gray background */
+  border-radius: 5px; /* Rounded corners */
+  padding: 15px; /* Padding for content */
+  text-align: center; /* Center text alignment */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  display: flex;
+  flex-direction: column; /* Organiza os itens em uma coluna */
+  align-items: center;
+}
+
+.lb_kpi {
+  font-weight: bold; /* Bold label */
+  font-size: 16px; /* Larger font size for labels */
+  margin-bottom: 10px;  /* Space between label and value */
+}
+
+.value_kpi {
+  font-size: 20px; /* Larger font size for values */
+}
+
 .div1{
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 12px;
+  margin-bottom: -64px;
 }
 
-.user-card {
-  width: 80%;
-  height: 75%;
-  background-color: yellow;
-  border-radius: 4px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+.user-card-info {
+  display: flex;
+  align-items: center;
+  padding: 16px;
 }
 
-.user-photo {
-  width: 75px;
-  height: 75px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 1rem;
+.block {
+  margin-bottom: 10px;
 }
 
-.user-info {
-  /* flex: 1; */
+.block p {
+  line-height: 1;
+  margin: 0;
 }
 
-.user-info h3 {
+.label {
+  font-size: 0.7em;
+  font-weight: 300;
+  color: #7c7b7b;
+  margin-bottom: 5px;
+}
+
+.user-info-left {
+  margin-left: -16px;
+  margin-top: 12px;
+  margin-bottom: 0px;
+}
+
+.user-info, .user-info-left h3 {
   margin: 0;
   font-size: 18px;
 }
 
-.user-info p {
+.user-info, .user-info-left p {
   margin-top: 5px;
   font-size: 14px;
 }
@@ -137,16 +174,14 @@ body {
 #map {
   width: 100%;
   height: 35vh;
-  box-shadow: 0px 5px 30px -21px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
-}
+  margin-top: -32px;
 
-.div3 {
-  background-color: lightcoral;
 }
 
 .div4 {
-  background-color: lightgoldenrodyellow;
+  background-color: transparent;
 }
 
 .div5 {
@@ -155,4 +190,55 @@ body {
 
 .div6 {
   background-color: lightseagreen;
+}
+
+.user-card {
+  width: 82%;
+  height: 75%;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  margin-top: 32px;
+}
+
+.user-card-info {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* Divide the grid into two columns with a 1:2 ratio */
+  gap: 8px; /* Add spacing between the image and information sections */
+}
+
+.block_value {
+  line-height: 1px;
+  font-weight: 200;
+}
+
+.user-photo {
+  width: 164px;
+  height: 164px;
+  padding: 16px;
+  border-radius: 12px;
+  object-fit: cover;
+  margin-right: 1rem;
+}
+
+.user-photo {
+  grid-row: 1 / span 2;
+  align-self: start;
+  border-radius: 24px;
+}
+
+.user-info {
+  grid-row: 1 / span 2;
+}
+
+.user-info {
+  margin-left: 32px;
+  margin-bottom: -64px;
+}
+
+.user-info label {
+  display: block;
+  font-size: 0.8em;
+  color: #666;
+  margin-bottom: 5px;
 }

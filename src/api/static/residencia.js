@@ -39,30 +39,20 @@ function listarDadosResidencia(){
         const endereco = data.endereco;
         const cliente = data.cliente;
 
-
-        /*
-<img id="photo" src="" alt="User Photo" class="user-photo">
-            <div class="user-info">
-              <h3 id="cliente_name"></h3>
-              <p><strong><span id="cliente_residencia"></span></p>
-              <p><strong><span id="cliente_bairro"></span></strong></p>
-              <p><span id="cliente_cep"></span> - <span id="cliente_cidade"></span> - <span id="cliente_estado"></span></p>
-            </div>
-        */
-
-        console.log(residencia)
-        console.log(endereco)
-        console.log(cliente.foto_url)
-
         document.getElementById("photo").src = cliente.foto_url;
-        document.getElementById("cliente_name").innerText = cliente.nome;
-        document.getElementById("cliente_residencia").innerText = residencia.nome;
-        document.getElementById("cliente_cep").innerText = endereco.cep;
+        document.getElementById("nome_value").innerText = cliente.nome + ' ' + cliente.sobrenome;
+        document.getElementById("email_value").innerText = cliente.email;
+        document.getElementById("telefone_value").innerText = cliente.telefone;
+        document.getElementById("cpf_value").innerText = cliente.cpf;
+        document.getElementById("residencia_name").innerText = residencia.nome;
+        document.getElementById("cliente_logradouro").innerText = endereco.logradouro + ', ' + endereco.numero + ' - ' + endereco.cep;
+        document.getElementById("cliente_bairro").innerText = endereco.bairro;
         document.getElementById("cliente_cidade").innerText = endereco.cidade;
         document.getElementById("cliente_estado").innerText = endereco.estado;
+        document.getElementById("cliente_latitude").innerText = endereco.latitude;
+        document.getElementById("cliente_longitude").innerText = endereco.longitude;
 
-        initializeMap(data.endereco.latitude, data.endereco.longitude);
-
+        initializeMap(endereco.latitude, endereco.longitude);
     });
 
 }

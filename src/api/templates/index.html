@@ -1,33 +1,52 @@
 <!-- templates/index.html -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='login.css') }}"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
     <title>X Sentinel</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="login-container">
-        <div class="logo">
-            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" width="250">
+      <div class="logo">
+        <img
+          src="{{ url_for('static', filename='logo.png') }}"
+          alt="Logo"
+          width="250"
+        />
+      </div>
+      <form id="login-form">
+        <div class="form-group">
+          <input type="text" name="email" placeholder="E-mail" required />
         </div>
-        <form id="login-form">
-            <div class="form-group">
-                <input type="text" name="email" placeholder="E-mail" required>
-            </div>
-            <div class="form-group">
-                <input type="password" name="password" id="password" placeholder="Password" required>
-                <span class="toggle-password" onclick="togglePassword()">👁️</span>
-            </div>
-            <div id="errorContainer" class="errorContainer">
-                <span class="error" id="errorMessage"></span>
-            </div>
-            <button type="submit" class="btn">Login</button>
-        </form>
+        <div class="form-group">
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+            required
+          />
+          <span class="toggle-password" onclick="togglePassword()">👁️</span>
+        </div>
+        <div id="errorContainer" class="errorContainer">
+          <span class="error" id="errorMessage"></span>
+        </div>
+        <button type="submit" class="btn">Login</button>
+      </form>
     </div>
 
     <script src="{{ url_for('static', filename='login.js') }}"></script>
-</body>
+  </body>
 </html>

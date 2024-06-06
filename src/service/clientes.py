@@ -42,7 +42,8 @@ def converter_residencia_para_json(dados):
                 "email": dados[5],
                 "senha": dados[6],
                 "foto_url": dados[7],
-                "habilitado": dados[8]
+                "habilitado": dados[8],
+                "telefone": dados[25]
             },
             "residencia": {
                 "id": dados[9],
