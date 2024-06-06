@@ -80,7 +80,6 @@ def converter_tweets_para_json(dados):
             "nome": item[1],
             "texto": item[2],
             "data_post": item[3].strftime('%Y-%m-%dT%H:%M:%S'),
-            "data_post": item[3],
             "palavra_chave": item[4],
             "is_palavrao": item[5],
             "residencia_id": item[6]
@@ -119,6 +118,15 @@ def get_residencia(id):
     else:
         return None
     
+def get_tweets(id):
+    connection = MySQLConnection()
+    tweets = connection.get_tweets_by_residencia_id(id)
+    tweets_json = converter_tweets_para_json(tweets)
+
+    if  tweets_json:
+        return tweets_json
+    else:
+        return None
 
 def search_levenshtein(residencia_id, search):
     connection = MySQLConnection()

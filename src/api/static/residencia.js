@@ -17,9 +17,74 @@ function initializePage() {
     if (token && nome) {
         document.getElementById("username").innerText = nome;
         listarDadosResidencia();
+        listarTweets();
     } else {
         window.location.href = "/";
     }
+}
+
+function listarTweets() {
+    const url = window.location.href;
+    const id = url.split("/")[4];
+    
+    fetch(`/tweets-x/${id}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "x-access-token": localStorage.getItem("token")
+        }
+    }).then((response) => response.json())
+    .then((data) => {
+        console.log(data)
+        ofensiveTweets = data.filter(tweet => tweet.isPalavrao == 1)
+
+        const currentDate = new Date();
+        const twoYearsAgo = new Date();
+        twoYearsAgo.setFullYear(currentDate.getFullYear() - 2);
+        const recentTweets = data.filter(tweet => new Date(tweet.data_post) >= twoYearsAgo);
+
+        document.getElementById("tweets_value").innerText = data.length
+        document.getElementById("ofensivos_value").innerText = ofensiveTweets.length
+        document.getElementById("recent_value").innerText = recentTweets.length
+
+        contentElement = document.getElementById("content")
+
+        data.forEach(tweet => {
+            const tweetCard = document.createElement('div');
+            tweetCard.className = "tweet-card";
+            
+            const header = document.createElement('div');
+            header.className = "tweet-header";
+            
+            const author = document.createElement('div');
+            author.className = "tweet-author";
+            author.innerText = tweet.nome;
+
+            const date = document.createElement('div');
+            date.className = "tweet-date";
+            const tweetDate = new Date(tweet.data_post);
+            date.innerText = tweetDate.toLocaleDateString('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            const message = document.createElement('div');
+            message.className = "tweet-message";
+            message.innerText = tweet.texto;
+
+            header.appendChild(author);
+            header.appendChild(date);
+
+            tweetCard.appendChild(header);
+            tweetCard.appendChild(message);
+
+            contentElement.appendChild(tweetCard);
+        });
+
+    });
 }
 
 function listarDadosResidencia(){

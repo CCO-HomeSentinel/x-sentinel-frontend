@@ -130,7 +130,7 @@ class MySQLConnection:
                 tw.palavra_chave,
                 tw.is_palavrao,
                 tw.residencia_id
-            FROM home_sentinel.tweet tw
+            FROM x_sentinel.tweet tw
             WHERE tw.residencia_id = {residencia_id};
         """
 

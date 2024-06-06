@@ -4,7 +4,6 @@ body {
   margin: 0;
   padding: 0;
   background-color: #f8f9fa;
-  overflow: hidden;
 }
 
 .navbar {
@@ -15,6 +14,23 @@ body {
   padding: 10px 20px;
   color: #333;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tweet-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.tweet-author {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.tweet-date {
+  color: #666;
+  font-size: 0.9em;
+  margin-bottom: 8px;
 }
 
 .navbar-left {
@@ -133,6 +149,14 @@ body {
   display: flex;
   align-items: center;
   padding: 16px;
+}
+
+.tweet-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 24px;
+  background-color: #f9f9f9;
 }
 
 .block {

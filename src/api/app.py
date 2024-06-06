@@ -8,7 +8,7 @@ from .config.auth import generate_token, token_required
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from config.logger import logger
-from service.clientes import get_mapeamento, logar, get_residencia, search_levenshtein
+from service.clientes import get_mapeamento, logar, get_residencia, search_levenshtein, get_tweets
 
 load_dotenv()
 
@@ -67,6 +67,16 @@ def create_app():
 
         if dados_residencia:
             return jsonify(dados_residencia), 200
+        else:
+            return jsonify({"message": "Residência não encontrada."}), 404
+        
+    @app.route('/tweets-x/<int:id>', methods=['GET'])
+    @token_required
+    def tweet_x(current_user, id):
+        tweets = get_tweets(id)
+
+        if tweets:
+            return jsonify(tweets), 200
         else:
             return jsonify({"message": "Residência não encontrada."}), 404
     
