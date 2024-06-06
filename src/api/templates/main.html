@@ -1,43 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-        crossorigin=""/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='main.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
     <title>X Sentinel - Main</title>
-</head>
-<body>
+  </head>
+  <body>
     <nav class="navbar">
-        <div class="navbar-left">
-            <img src={{ url_for('static', filename='logoTransparenteFora.png') }} alt="User Image" width="40" style="margin-right: 16px">
-            <span id="username">Usuário</span>
-        </div>
-        <div class="navbar-right">
-            <button id="logout-button" class="btn-logout">Sair</button>
-        </div>
+      <div class="navbar-left">
+        <img src={{ url_for('static', filename='logoTransparenteFora.png') }}
+        alt="User Image" width="40" style="margin-right: 16px">
+        <span id="username">Usuário</span>
+      </div>
+      <div class="navbar-right">
+        <button id="logout-button" class="btn-logout">Sair</button>
+      </div>
     </nav>
     <div class="content">
-        <div class="main-container">
-            <div class="client-section">
-                <h1>Selecione o cliente</h1>
-                <div class="client-container">
-                    <!-- Os clientes serão inseridos aqui -->
-                </div>
-            </div>
-            <div class="iframe-container">
-                <div id="map"></div>
-            </div>
+      <div class="main-container">
+        <div class="client-section">
+          <h1>Selecione o cliente</h1>
+          <div class="client-container">
+            <!-- Os clientes serão inseridos aqui -->
+          </div>
         </div>
+        <div class="iframe-container">
+          <div id="map"></div>
+        </div>
+      </div>
     </div>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-        crossorigin=""></script>
-    <script src="{{ url_for('static', filename='main.js') }}">
-    </script>
-</body>
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+  </body>
 </html>

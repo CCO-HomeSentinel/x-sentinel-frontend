@@ -9,11 +9,11 @@ from config.logger import logger
 
 load_dotenv()
 
-MYSQL_HOST = os.getenv('MYSQL_HOST')
-MYSQL_PORT = int(os.getenv('MYSQL_PORT'))
-MYSQL_DATABASE = os.getenv('MYSQL_DATABASE')
-MYSQL_USERNAME = os.getenv('MYSQL_USERNAME')
-MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD')
+MYSQL_HOST = os.getenv("MYSQL_HOST")
+MYSQL_PORT = int(os.getenv("MYSQL_PORT"))
+MYSQL_DATABASE = os.getenv("MYSQL_DATABASE")
+MYSQL_USERNAME = os.getenv("MYSQL_USERNAME")
+MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
 
 
 class MySQLConnection:
@@ -29,26 +29,20 @@ class MySQLConnection:
         except Exception as e:
             logger.log("error", f"Erro ao conectar com o banco de dados. {e}")
 
-
     def get_session(self):
         return self.session
-
 
     def close_connection(self):
         self.session.close()
 
-
     def get_database(self):
         return MYSQL_DATABASE
-    
-    
+
     def get_connection(self):
         return self.engine.connect()
 
-
     def return_dict(self, obj):
         return {col.name: getattr(obj, col.name) for col in obj.__table__.columns}
-
 
     def execute_select_query(self, query):
         try:
@@ -60,7 +54,6 @@ class MySQLConnection:
             logger.log("error", f"Erro ao executar query de select. {e}")
             return []
 
-
     def execute_single_select_query(self, query):
         try:
             with self.engine.connect() as connection:
@@ -70,7 +63,6 @@ class MySQLConnection:
         except Exception as e:
             logger.log("error", f"Erro ao executar query de select. {e}")
             return []
-    
 
     def get_mapping(self):
         query = """
@@ -89,15 +81,35 @@ class MySQLConnection:
                 JOIN home_sentinel.residencia re ON re.cliente_id = cl.id
             	JOIN home_sentinel.endereco en ON en.residencia_id = re.id
             ORDER BY cl.id;"""
-        
+
         return self.execute_select_query(query)
-    
 
     def get_login(self, email, senha):
         query = f"""
             SELECT id, nome, email
             FROM home_sentinel.usuario
             WHERE email = '{email}' AND senha = MD5('{senha}');
+        """
+
+        result = self.execute_single_select_query(query)
+
+        if result:
+            return result
+        else:
+            return None
+
+    def get_residencia(self, id):
+        query = f"""
+            SELECT 
+	            cl.*,
+                re.*, 
+                en.*,
+                CONCAT(tl.codigo_discagem, ' (', tl.codigo_area, ') ', tl.numero) telefone
+            FROM home_sentinel.cliente cl
+                JOIN home_sentinel.residencia re ON re.cliente_id = cl.id
+	            JOIN home_sentinel.endereco en ON en.residencia_id = re.id
+                JOIN home_sentinel.telefone tl ON tl.cliente_id = cl.id
+                        WHERE re.id = {id};
         """
 
         result = self.execute_single_select_query(query)
