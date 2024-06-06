@@ -2,6 +2,7 @@ import os
 import sys
 from decimal import Decimal
 import json
+from .engine import calculate
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from config.logger import logger
@@ -68,6 +69,26 @@ def converter_residencia_para_json(dados):
         }
         
         return dicionario
+    
+
+def converter_tweets_para_json(dados):
+    lista_json = []
+
+    for item in dados:
+        dicionario = {
+            "id": item[0],
+            "nome": item[1],
+            "texto": item[2],
+            "data_post": item[3].strftime('%Y-%m-%dT%H:%M:%S'),
+            "data_post": item[3],
+            "palavra_chave": item[4],
+            "is_palavrao": item[5],
+            "residencia_id": item[6]
+        }
+        
+        lista_json.append(dicionario)
+
+    return lista_json
 
 
 def get_mapeamento():
@@ -97,3 +118,25 @@ def get_residencia(id):
         return residencia_json
     else:
         return None
+    
+
+def search_levenshtein(residencia_id, search):
+    connection = MySQLConnection()
+    
+    if len(search.split()) > 1:
+        return None
+    
+    resultados, is_zero = calculate(search)
+
+    global tweets
+    
+    if not is_zero:
+        tweets_palavra = connection.get_tweets_by_residencia_id_and_palavras(residencia_id, resultados)
+
+        for tweet in tweets_palavra:
+            tweets.append(tweet)
+    
+    else:
+        tweets = connection.get_tweets_by_residencia_id_and_palavra(residencia_id, search)
+        
+    return converter_tweets_para_json(tweets)
