@@ -23,26 +23,26 @@ class MySQLConnection:
                 f"mysql://{MYSQL_USERNAME}:{MYSQL_PASSWORD}@"
                 f"{MYSQL_HOST}:{MYSQL_PORT}"
             )
-            Session = sessionmaker(bind=self.engine)
-            self.session = Session()
 
         except Exception as e:
             logger.log("error", f"Erro ao conectar com o banco de dados. {e}")
 
-    def get_session(self):
-        return self.session
-
-    def close_connection(self):
-        self.session.close()
 
     def get_database(self):
         return MYSQL_DATABASE
 
+
     def get_connection(self):
         return self.engine.connect()
 
+
+    def close_connection(self):
+        self.engine.dispose()
+
+
     def return_dict(self, obj):
         return {col.name: getattr(obj, col.name) for col in obj.__table__.columns}
+
 
     def execute_select_query(self, query):
         try:
@@ -54,6 +54,7 @@ class MySQLConnection:
             logger.log("error", f"Erro ao executar query de select. {e}")
             return []
 
+
     def execute_single_select_query(self, query):
         try:
             with self.engine.connect() as connection:
@@ -63,6 +64,7 @@ class MySQLConnection:
         except Exception as e:
             logger.log("error", f"Erro ao executar query de select. {e}")
             return []
+
 
     def get_mapping(self):
         query = """
@@ -84,10 +86,11 @@ class MySQLConnection:
 
         return self.execute_select_query(query)
 
+
     def get_login(self, email, senha):
         query = f"""
             SELECT id, nome, email
-            FROM home_sentinel.usuario
+            FROM x_sentinel.usuario
             WHERE email = '{email}' AND senha = MD5('{senha}');
         """
 
