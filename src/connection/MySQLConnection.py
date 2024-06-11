@@ -32,10 +32,6 @@ class MySQLConnection:
         return MYSQL_DATABASE
 
 
-    def get_connection(self):
-        return self.engine.connect()
-
-
     def close_connection(self):
         self.engine.dispose()
 

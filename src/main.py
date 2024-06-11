@@ -1,5 +1,5 @@
 import os
-from config.setup import setup_database, setup_api
+from config.setup import setup_api
 from config.logger import logger
 from dotenv import load_dotenv
 
@@ -11,9 +11,6 @@ FLASK_DEBUG = os.getenv("FLASK_DEBUG", "False").lower() == "true"
 def main():
     logger.log("info", "Iniciando aplicação")
     
-    setup_database()
-    logger.log("info", "Banco de dados conectado com sucesso.")
-
     app = setup_api()
     app.run(debug=FLASK_DEBUG, port=PORT)
     logger.log("info", "Aplicação iniciada com sucesso.")
