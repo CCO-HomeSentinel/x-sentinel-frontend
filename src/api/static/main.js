@@ -75,18 +75,19 @@ function clientCardExists(clientName) {
 function createClientCard(cliente, clientData, container) {
     const clientCard = document.createElement("div");
     clientCard.classList.add("client-card");
+    clientCard.classList.add("col-lg-6");
     clientCard.setAttribute("data-client-name", cliente.nome);
 
     const fotoUrl = cliente.foto_url ? cliente.foto_url : "https://i.pinimg.com/474x/cf/4a/c1/cf4ac168846158fc8dca8e80adf2e264.jpg";
 
     clientCard.innerHTML = `
-        <div class="client-card-inner">
-            <img src="${fotoUrl}" alt="Cliente">
-            <div class="client-info">
-                <h3>${cliente.nome}</h3>
-                <p class='residencia'>${cliente.residencia}</p>
-                <p class='bairro'>${cliente.bairro}</p>
-                <p class='cidade-estado'>${cliente.cidade} - ${cliente.estado}</p>
+        <div class="card mb-4 cursor-pointer">
+            <img src="${fotoUrl}" class="custom-img-height" alt="Cliente">
+            <div class="card-body">
+                <h5 class="card-title">${cliente.nome}</h5>
+                <p class="card-text">${cliente.residencia}</p>
+                <p class="card-text">${cliente.bairro}</p>
+                <p class="card-text">${cliente.cidade} - ${cliente.estado}</p>
             </div>
         </div>
     `;
@@ -99,24 +100,77 @@ function createClientCard(cliente, clientData, container) {
 }
 
 function showResidencesList(residencias) {
-    const modal = createModal();
+    const modal = document.createElement("div");
+    modal.classList.add("modal", "fade");
+    modal.setAttribute("id", "residencesModal");
+    modal.setAttribute("tabindex", "-1");
+    modal.setAttribute("aria-labelledby", "residencesModalLabel");
+    modal.setAttribute("aria-hidden", "true");
+
+    const modalDialog = document.createElement("div");
+    modalDialog.classList.add("modal-dialog");
+
+    const modalContent = document.createElement("div");
+    modalContent.classList.add("modal-content");
+
+    const modalHeader = document.createElement("div");
+    modalHeader.classList.add("modal-header");
+    modalHeader.innerHTML = `
+        <h5 class="modal-title" id="residencesModalLabel">Lista de Residências</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    `;
+
+    const modalBody = document.createElement("div");
+    modalBody.classList.add("modal-body");
 
     residencias.forEach((residencia) => {
-        const residenceOption = document.createElement("div");
-        residenceOption.classList.add("residence-option");
-        residenceOption.innerHTML = `
-            <p class='residencia'>${residencia.residencia}</p>
-            <p class='bairro'>${residencia.bairro}</p>
-            <p class='cidade-estado'>${residencia.cidade} - ${residencia.estado}</p>
+        const card = document.createElement("div");
+        card.classList.add("card", "mb-3", "cursor-pointer");
+
+        const cardBody = document.createElement("div");
+        cardBody.classList.add("card-body");
+
+        cardBody.innerHTML = `
+            <h5 class="card-title">${residencia.residencia}</h5>
+            <p class="card-text"><strong>Bairro:</strong> ${residencia.bairro}</p>
+            <p class="card-text"><strong>Cidade - Estado:</strong> ${residencia.cidade} - ${residencia.estado}</p>
         `;
-        residenceOption.addEventListener("click", () => {
+
+        card.appendChild(cardBody);
+
+        card.addEventListener("click", () => {
             window.location.href = `residencia/${residencia.residencia_id}`;
         });
-        modal.querySelector('.modal-content').appendChild(residenceOption);
+
+        modalBody.appendChild(card);
     });
 
+    const modalFooter = document.createElement("div");
+    modalFooter.classList.add("modal-footer");
+    modalFooter.innerHTML = `
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+    `;
+
+    modalContent.appendChild(modalHeader);
+    modalContent.appendChild(modalBody);
+    modalContent.appendChild(modalFooter);
+    modalDialog.appendChild(modalContent);
+    modal.appendChild(modalDialog);
+
+    // Adiciona o modal ao corpo do documento
     document.body.appendChild(modal);
-    modal.style.display = "block";
+
+    // Inicializa o modal usando Bootstrap
+    var myModal = new bootstrap.Modal(modal);
+
+    // Adiciona um ouvinte de evento para resetar o modal quando ele for fechado
+    modal.addEventListener('hidden.bs.modal', function () {
+        // Remove todos os filhos do modal-content para resetar seu conteúdo
+        modal.querySelector('.modal-content').innerHTML = '';
+    });
+
+    // Mostra o modal
+    myModal.show();
 }
 
 function createModal() {

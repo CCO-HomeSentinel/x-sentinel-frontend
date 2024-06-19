@@ -54,14 +54,14 @@ function listarTweets() {
             tweetCard.className = "tweet-card";
             
             const header = document.createElement('div');
-            header.className = "tweet-header";
+            header.className = "d-flex justify-content-between mb-2";
             
             const author = document.createElement('div');
-            author.className = "tweet-author";
+            author.className = "fw-bold mb-2";
             author.innerText = tweet.nome;
 
             const date = document.createElement('div');
-            date.className = "tweet-date";
+            date.className = "text-muted small mb-2";
             const tweetDate = new Date(tweet.data_post);
             date.innerText = tweetDate.toLocaleDateString('pt-BR', {
                 day: '2-digit',
