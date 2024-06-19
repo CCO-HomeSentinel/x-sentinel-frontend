@@ -108,7 +108,7 @@ function listarDadosResidencia(){
         document.getElementById("nome_value").innerText = cliente.nome + ' ' + cliente.sobrenome;
         document.getElementById("email_value").innerText = cliente.email;
         document.getElementById("telefone_value").innerText = cliente.telefone;
-        document.getElementById("cpf_value").innerText = cliente.cpf;
+        document.getElementById("cpf_value").innerText = formatarCPF(cliente.cpf);
         document.getElementById("residencia_name").innerText = residencia.nome;
         document.getElementById("cliente_logradouro").innerText = endereco.logradouro + ', ' + endereco.numero + ' - ' + endereco.cep;
         document.getElementById("cliente_bairro").innerText = endereco.bairro;
@@ -146,4 +146,11 @@ function updateMap(locations) {
                 .bindPopup(location[2]);
         });
     }
+}
+
+function formatarCPF(cpf) {
+    var primeiros = cpf.substring(0, 3);
+    var ultimos = cpf.substring(cpf.length - 2);
+
+    return `${primeiros}.***.***-${ultimos}`;
 }
