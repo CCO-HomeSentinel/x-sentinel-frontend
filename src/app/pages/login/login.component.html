@@ -1,0 +1,17 @@
+<div class="w-full">
+    <p-card header="Bem vindo(a)">
+        <form (ngSubmit)="onSubmit()" class="grid">
+            <div class="col-12 flex flex-column gap-2">
+                <label for="email">Email</label>
+                <input pInputText id="email" [(ngModel)]="auth.email" name="email" type="email" required />
+            </div>
+            <div class="col-12 flex flex-column gap-2 p-fluid">
+                <label for="password">Senha</label>
+                <p-password [(ngModel)]="auth.password" name="password" [feedback]="false" required />
+            </div>
+            <div class="col-12">
+                <p-button type="submit">Entrar</p-button>
+            </div>
+        </form>
+    </p-card>
+</div>

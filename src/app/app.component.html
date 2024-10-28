@@ -1,0 +1,13 @@
+<p-toast></p-toast>
+<div class="surface-100 h-full">
+    <app-topbar [isAuthenticated]="isAuth()" (toggleSidebar)="toggleSidebar()"></app-topbar>
+    <div class="flex h-screen">
+        <app-sidebar #sidebar *ngIf="isAuth()" ></app-sidebar>
+        <div *ngIf="isAuth()" class="m-3 w-full">
+            <router-outlet></router-outlet>
+        </div>
+        <div *ngIf="!isAuth()" class="w-full flex justify-content-center mt-8">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

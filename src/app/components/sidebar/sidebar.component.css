@@ -1,0 +1,9 @@
+.sidebar-item:hover {
+    background-color: #e0e0e0;
+    border-left: 5px solid #3e97eb;
+}
+
+.active-link {
+    background-color: #e0e0e0;
+    border-left: 5px solid #3e97eb;
+}

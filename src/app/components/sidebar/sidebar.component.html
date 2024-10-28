@@ -1,0 +1,12 @@
+<div [ngClass]="{'w-14rem': isExpanded, 'w-5rem': !isExpanded}" class="w-5rem transition-duration-150 shadow-1 overflow-hidden p-2 h-full bg-white">
+    <ul class="p-0 m-0 list-none">
+        <li class="flex flex-column grid" *ngFor="let item of menuItems">
+            <a class="sidebar-item pl-5 transition-duration-150 flex w-full h-4rem col-12 align-items-center p-2 no-underline text-500 justify-content-left"
+            [routerLink]="item.route" 
+            routerLinkActive="active-link">
+                <i [ngClass]="item.icon" class="pi mr-2"></i>
+                <span class="transition-duration-200" *ngIf="isExpanded">{{ item.label }}</span>
+            </a>
+        </li>
+    </ul>
+</div>

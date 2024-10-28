@@ -1,0 +1,23 @@
+<nav [ngClass]="{'justify-content-between': isAuthenticated, 'justify-content-center': !isAuthenticated}" class="flex w-full justify-content-between align-items-center p-3 bg-white shadow-1 h-4rem">
+    <div *ngIf="isAuthenticated">
+        <p-button icon="pi pi-bars" [rounded]="true" [text]="true" severity="secondary" (click)="onToggle()" />
+    </div>
+    <div>
+        <img src="assets/img/logo.png" alt="X Sentinel" width="200" />
+    </div>
+    <div *ngIf="isAuthenticated">
+        <p-avatar 
+            icon="pi pi-user" 
+            styleClass="mr-2 cursor-pointer" 
+            shape="circle" 
+            (click)="op.toggle($event)"
+        />
+        <p-overlayPanel #op>
+            <div class="flex flex-column w-8rem">
+                <span class="text-lg font-bold">Perfil</span>
+                <p-divider />
+                <p-button label="Sair" icon="pi pi-sign-out" (click)="logout()" severity="danger"/>
+            </div>
+        </p-overlayPanel>
+    </div>
+</nav>
