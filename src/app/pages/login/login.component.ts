@@ -33,14 +33,19 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    if (this.authService.login(this.auth)) {
-      console.log('Login realizado com sucesso');
-      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Login realizado com sucesso' });
-      this.router.navigate(['/dashboard']);
-    } else {
-      console.log('Credenciais inválidas');
-      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Credenciais inválidas' });
-    }
+    this.authService.login(this.auth).then(success => {
+      if (success) {
+        console.log('Login realizado com sucesso');
+        this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Login realizado com sucesso' });
+        this.router.navigate(['/dashboard']);
+      } else {
+        console.log('Credenciais inválidas');
+        this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Credenciais inválidas' });
+      }
+    }).catch(err => {
+      console.log('Erro ao fazer login:', err);
+      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao fazer login, tente novamente' });
+    });
   }
 
 }

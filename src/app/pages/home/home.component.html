@@ -1,5 +1,19 @@
 <p-card [header]="getGreeting()">
-    <div class="grid h-screen">
-        <span>Todos os sensores IoT da residência estão funcionando corretamente. As métricas de temperatura, umidade e segurança mostram níveis normais, sem anomalias detectadas. A integração entre os dispositivos está fluindo suavemente, garantindo monitoramento eficaz. Vamos continuar acompanhando para garantir que tudo permaneça em ordem!    </span>
+    <div class="grid flex">
+        <!-- <span class="col-12 mb-4">Todos os sensores IoT da residência estão funcionando corretamente. As métricas de temperatura, umidade e segurança mostram níveis normais, sem anomalias detectadas. A integração entre os dispositivos está fluindo suavemente, garantindo monitoramento eficaz. Vamos continuar acompanhando para garantir que tudo permaneça em ordem!    </span> -->
+        <div class="col-12">
+            <div class="flex flex-column gap-2">
+                <label for="date">Selecione o mês</label>
+                <p-calendar 
+                    id="date"
+                    [(ngModel)]="selectedDate" 
+                    (ngModelChange)="updateDate($event)"
+                    view="month" 
+                    dateFormat="MM yy" 
+                    [readonlyInput]="true"
+                />
+            </div>
+        </div>
+        <iframe class="col-12 h-screen border-none" [src]="urlDashboard"></iframe>
     </div>
 </p-card>
