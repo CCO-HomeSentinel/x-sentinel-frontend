@@ -25,6 +25,3 @@ COPY ./nginx.conf  /etc/nginx/conf.d/default.conf
 
 # Expose ports
 EXPOSE 80 443 6006 4200
-
-RUN chmod +x /usr/local/app/entrypoint.sh
-ENTRYPOINT [ "/usr/local/app/entrypoint.sh" ]
