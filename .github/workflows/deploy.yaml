@@ -38,13 +38,7 @@ jobs:
         run: |
           docker tag xsentinel ${{ secrets.DOCKER_USERNAME }}/xsentinel:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/xsentinel:latest
-      
-      - name: Check variables
-        run: |
-          if [ -z "$PRIVATE_KEY" ]; then echo "PRIVATE_KEY is empty"; exit 1; fi
-          if [ -z "$HOSTNAME" ]; then echo "HOSTNAME is empty"; exit 1; fi
-          if [ -z "$USER_NAME" ]; then echo "USER_NAME is empty"; exit 1; fi
-
+  
       - name: Deploy to EC2
         env:
           PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -52,6 +46,9 @@ jobs:
           USER_NAME: ${{ secrets.USER_NAME }}
           
         run: |
+          if [ -z "$PRIVATE_KEY" ]; then echo "PRIVATE_KEY is empty"; exit 1; fi
+          if [ -z "$HOSTNAME" ]; then echo "HOSTNAME is empty"; exit 1; fi
+          if [ -z "$USER_NAME" ]; then echo "USER_NAME is empty"; exit 1; fi
           # Cria a chave privada a partir do secret
           echo "$PRIVATE_KEY" > private_key
           chmod 600 private_key
@@ -64,3 +61,5 @@ jobs:
               docker rm xsentinel || true &&
               docker run -d --name xsentinel -p 80:80 '${{ secrets.DOCKER_USERNAME }}'/xsentinel:latest
           '
+
+          
