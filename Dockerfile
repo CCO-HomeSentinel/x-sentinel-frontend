@@ -1,27 +1,30 @@
-# Usa uma imagem base do Node.js
-FROM node:20 AS build
+# Use official node image as the base image
+FROM node:lts as build
 
-# Define o diretório de trabalho
-WORKDIR /app
+ADD ./package.json /tmp/package.json
+RUN cd /tmp && npm install
+RUN mkdir -p /usr/local/app && cp -a /tmp/node_modules /usr/local/app/
 
-# Copia os arquivos de pacotes e instala as dependências
-COPY package*.json ./
-RUN npm install
+WORKDIR /usr/local/app
 
-# Copia o restante do código do aplicativo
-COPY . .
+# Add the source code from the app to the container
+COPY ./ /usr/local/app/
 
-# Compila a aplicação Angular
-RUN npm run build --configuration=local
+# Generate the build of the application
+RUN npm run build
 
-# Usa uma imagem base para servir o conteúdo estático
-FROM nginx:alpine
+# Stage 2: Serve app with nginx server
+# Use official nginx image as the base image
+FROM nginx:latest
 
-# Copia os arquivos compilados para o Nginx
-COPY --from=build /app/dist/x-sentinel-frontend /usr/share/nginx/html
+# Copy the build output to replace the default nginx contents.
+COPY --from=build /usr/local/app/dist/x-sentinel-frontend/browser /usr/share/nginx/html
 
-# Expondo a porta que o Nginx vai usar
-EXPOSE 80
+# Copy the nginx conf that we created to the container
+COPY ./nginx.conf  /etc/nginx/conf.d/default.conf
 
-# Comando para rodar o Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Expose ports
+EXPOSE 80 443 6006 4200
+
+RUN chmod +x /usr/local/app/entrypoint.sh
+ENTRYPOINT [ "/usr/local/app/entrypoint.sh" ]
