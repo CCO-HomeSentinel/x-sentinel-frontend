@@ -38,6 +38,12 @@ jobs:
         run: |
           docker tag xsentinel ${{ secrets.DOCKER_USERNAME }}/xsentinel:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/xsentinel:latest
+      
+      - name: Check variables
+        run: |
+          if [ -z "$PRIVATE_KEY" ]; then echo "PRIVATE_KEY is empty"; exit 1; fi
+          if [ -z "$HOSTNAME" ]; then echo "HOSTNAME is empty"; exit 1; fi
+          if [ -z "$USER_NAME" ]; then echo "USER_NAME is empty"; exit 1; fi
 
       - name: Deploy to EC2
         env:
