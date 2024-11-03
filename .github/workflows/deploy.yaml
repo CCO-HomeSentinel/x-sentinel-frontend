@@ -41,19 +41,20 @@ jobs:
 
       - name: Deploy to EC2
         env:
-          PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }} 
+          PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           HOSTNAME: ${{ secrets.SSH_HOST }}
           USER_NAME: ${{ secrets.USER_NAME }}
           
         run: |
           # Cria a chave privada a partir do secret
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          echo "$PRIVATE_KEY" > private_key
+          chmod 600 private_key
 
-          # Faz a conexão SSH e roda os comandos no servidor
+          # Tenta se conectar via SSH
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
               # Agora estamos com acesso à EC2 e vamos fazer o deploy do Docker
-              docker pull ${{ secrets.DOCKER_USERNAME }}/xsentinel:latest &&
+              docker pull '${{ secrets.DOCKER_USERNAME }}'/xsentinel:latest &&
               docker stop xsentinel || true &&
               docker rm xsentinel || true &&
-              docker run -d --name xsentinel -p 80:80 ${{ secrets.DOCKER_USERNAME }}/xsentinel:latest
+              docker run -d --name xsentinel -p 80:80 '${{ secrets.DOCKER_USERNAME }}'/xsentinel:latest
           '
