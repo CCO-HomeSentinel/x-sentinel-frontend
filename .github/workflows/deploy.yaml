@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name: Build the Angular application
-        run: npm run build
+        run: ng build --configuration=development
 
       - name: Build Docker image
         run: |
