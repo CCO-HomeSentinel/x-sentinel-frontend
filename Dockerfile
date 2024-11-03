@@ -11,7 +11,7 @@ WORKDIR /usr/local/app
 COPY ./ /usr/local/app/
 
 # Generate the build of the application
-RUN ng build --configuration=development
+RUN npm run build:dev
 
 # Stage 2: Serve app with nginx server
 # Use official nginx image as the base image
