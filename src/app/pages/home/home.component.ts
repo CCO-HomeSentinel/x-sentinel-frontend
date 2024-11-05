@@ -29,7 +29,7 @@ export class HomeComponent {
   ngOnInit() {
     this.selectedDate = new Date();
     this.updateDate(this.selectedDate);
-    this.user_id = localStorage.getItem('user_id')?.toString() || '';
+    this.user_id = localStorage.getItem('id')?.toString() || '';
     this.getResidencias();
     this.setUrlDashboard();
   }

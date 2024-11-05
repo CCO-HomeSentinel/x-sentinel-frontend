@@ -20,9 +20,27 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       this.http.post(`${this.apiUrl}/login`, auth).subscribe(
         (response: any) => {
-          localStorage.setItem('token', "token");
-          localStorage.setItem('user_name', "Kauan");
-          localStorage.setItem('user_id', "14476");
+          localStorage.setItem('email', auth.email);
+          resolve(true); 
+        },
+        (error: any) => {
+          console.error('Erro ao fazer login:', error);
+          reject(false); 
+        }
+      );
+    });
+  }
+
+  verifyCode(code: string): Promise<boolean> {
+    const verification = {
+      "email": localStorage.getItem('email'),
+      "code": code
+    }
+    return new Promise((resolve, reject) => {
+      this.http.post(`${this.apiUrl}/verify-code`, verification).subscribe(
+        (response: any) => {
+          localStorage.setItem("token", "token")
+          localStorage.setItem('id', response.message.id);
           resolve(true); 
         },
         (error: any) => {
