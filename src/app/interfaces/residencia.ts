@@ -19,3 +19,8 @@ export interface Residencia {
     pais: string;
     comodos: Comodo[];
 }
+
+export interface Response {
+    message: Residencia[],
+    status_code: number
+}
